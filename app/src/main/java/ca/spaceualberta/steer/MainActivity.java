@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
     Handler handler;
     Runnable r;
 
-    boolean done = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         c = new Communicator();
 
         setContentView(cv);
-        
+
         handler = new Handler();
         r =  new Runnable() {
             @Override
@@ -33,9 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 if(cv.isActive() && c.isActive()) {
                     c.send(cv.getControlLeft(), cv.getControlRight());
                 }
-                if(!done) {
-                    handler.postDelayed(this, 16);
-                }
+                handler.postDelayed(this, 16);
             }
         };
     }
@@ -43,17 +40,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        done = false;
+        cv.setActive(true);
         handler.post(r);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        for(int i = 0; i < 100; i++){
-            c.send(0,0);
-        }
-        done = true;
+        cv.setActive(false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        c.clean();
     }
 }
 

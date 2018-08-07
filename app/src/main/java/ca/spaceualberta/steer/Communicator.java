@@ -44,6 +44,13 @@ final class Communicator{
 
     }
 
+    void clean(){
+        active = false;
+        webSocket.close(1000, "App is closing");
+        client.dispatcher().executorService().shutdown();
+        client.dispatcher().cancelAll();
+    }
+
 
     public void send(float left, float right){
         String msg = "{\"type\":\"drive\", \"left\": "+Math.max(Math.min(left, 1), -1)+", \"right\": "+Math.max(Math.min(right, 1), -1)+"}";
