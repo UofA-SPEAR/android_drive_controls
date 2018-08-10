@@ -1,9 +1,7 @@
 package ca.spaceualberta.steer;
 
-import android.app.Activity;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -52,8 +50,11 @@ final class Communicator{
     }
 
 
-    public void send(float left, float right){
-        String msg = "{\"type\":\"drive\", \"left\": "+Math.max(Math.min(left, 1), -1)+", \"right\": "+Math.max(Math.min(right, 1), -1)+"}";
+    public void send(float left, float right, float wheelie_amount){
+        String msg = "{\"type\":\"drive\", \"left\": "
+                +Math.max(Math.min(left, 1), -1)+", \"right\": "+Math.max(Math.min(right, 1), -1)
+                + ", \"wheelie\": " + wheelie_amount
+                +"}";
         Log.v(webSocket.request().url().host(), "loc: "+webSocket.request().url().port());
         Log.v("websocket", "sent: "+msg);
         webSocket.send(msg);

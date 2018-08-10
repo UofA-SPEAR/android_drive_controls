@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if(cv.isActive() && c.isActive()) {
-                    c.send(cv.getControlLeft(), cv.getControlRight());
+                    c.send(cv.getControlLeft(), cv.getControlRight(), cv.getControlWheelie());
                 }
                 handler.postDelayed(this, 16);
             }
