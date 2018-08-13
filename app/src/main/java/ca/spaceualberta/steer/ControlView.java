@@ -13,9 +13,7 @@ final class ControlView extends View {
     Paint paint;
 
     int left, right;
-    int wheelie_amount;
     Rect r, l;
-    Rect wheelie;
 
     boolean active;
     int touches;
@@ -26,8 +24,6 @@ final class ControlView extends View {
        paint = new Paint();
        r = new Rect();
        l = new Rect();
-       wheelie = new Rect();
-
     }
 
     @Override
@@ -46,11 +42,6 @@ final class ControlView extends View {
                 if (r.contains(x, y)) {
                     right = y - h / 2;
                 }
-
-                if (wheelie.contains(x, y)) {
-                    wheelie_amount = y - h / 2;
-                }
-
 
             }
         }
@@ -82,7 +73,6 @@ final class ControlView extends View {
         this.h = h;
         l.set(w/4 - w/10,h/10, w/4 + w/10, 9*h/10);
         r.set(3*w/4 - w/10,h/10, 3*w/4 + w/10, 9*h/10);
-        wheelie.set(w*4/10, h*2/10, w*6/10, h*8/10);
 
         setActive(true);
 
@@ -103,7 +93,6 @@ final class ControlView extends View {
        // draw triggers
        drawController(canvas, l, left);
        drawController(canvas, r, right);
-       drawController(canvas, wheelie, wheelie_amount);
 
    }
 
@@ -127,10 +116,6 @@ final class ControlView extends View {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public float getControlWheelie() {
-        return 2*(((float)wheelie_amount)/(wheelie.top-wheelie.bottom));
     }
 
 

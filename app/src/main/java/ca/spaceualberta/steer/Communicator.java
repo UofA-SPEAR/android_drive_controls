@@ -23,7 +23,7 @@ final class Communicator{
         webSocket = client.newWebSocket(request, new WebSocketListener() {
             @Override
             public void onMessage(WebSocket webSocket, String text) {
-                Log.v("websocket", "received: "+ text);
+                Log.d("websocket", "received: "+ text);
             }
         });
 
